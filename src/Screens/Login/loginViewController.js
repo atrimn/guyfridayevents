@@ -5,11 +5,13 @@
 */
 import React, {useState, useEffect} from 'react'
 import LoginView from './LoginView'
+import {useAuth} from '../../Context/AppProvider'
 
 const LoginViewController = props => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
+  const {logIn} = useAuth()
   const {navigation} = props
 
   useEffect(() => {
@@ -20,12 +22,23 @@ const LoginViewController = props => {
     navigation.navigate(route)
   }
 
+  const authenticate = async (username, password) => {
+    try {
+      const response = await logIn(username, password)
+      console.log(response)
+      response.success ? navigation.navigate('App') : null
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const data = {
     username,
     password,
     setUsername,
     setPassword,
     navigationHandler,
+    logIn: authenticate,
   }
 
   return <LoginView data={data} {...props} />

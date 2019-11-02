@@ -30,10 +30,12 @@ const RegisterView = props => {
     password,
     setPassword,
     headerBackHandler,
-  } = props.data
+    createAccount,
+  } = props
 
   useEffect(() => {
     console.log(props.data)
+    console.log(props)
     // toggleTabsHandler('login')
   }, [])
 
@@ -57,27 +59,24 @@ const RegisterView = props => {
             <Input value={username} onChangeText={setUsername} />
           </Item>
           <Item floatingLabel last>
-            <Label>Email address</Label>
-            <Input value={username} onChangeText={setUsername} />
-          </Item>
-          <Item floatingLabel last>
-            <Label>Email address</Label>
-            <Input value={username} onChangeText={setUsername} />
-          </Item>
-          <Item floatingLabel last>
-            <Label>Email address</Label>
-            <Input value={username} onChangeText={setUsername} />
-          </Item>
-          <Item floatingLabel last>
-            <Label>Email address</Label>
-            <Input value={username} onChangeText={setUsername} />
-          </Item>
-          <Item floatingLabel last>
-            <Label>Email address</Label>
-            <Input value={username} onChangeText={setUsername} />
+            <Label>Password</Label>
+            <Input
+              secureTextEntry
+              value={password}
+              onChangeText={setPassword}
+            />
           </Item>
         </Form>
-        <Button block small style={{marginVertical: 20}}>
+        <Button
+          block
+          small
+          style={{marginVertical: 20}}
+          onPress={() => {
+            const response = createAccount(username, password)
+            if (response.success) {
+              props.navigation.navigate('ForgotPass')
+            }
+          }}>
           <Text>Register</Text>
         </Button>
       </Content>

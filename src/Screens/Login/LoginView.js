@@ -26,6 +26,7 @@ const LoginView = props => {
     password,
     setPassword,
     navigationHandler,
+    logIn,
   } = props.data
 
   useEffect(() => {
@@ -53,7 +54,10 @@ const LoginView = props => {
             />
           </Item>
         </Form>
-        <Button block style={{marginTop: 20, marginBottom: 10}}>
+        <Button
+          block
+          style={{marginTop: 20, marginBottom: 10}}
+          onPress={() => logIn(username, password)}>
           <Text>Sign in</Text>
         </Button>
         <Button

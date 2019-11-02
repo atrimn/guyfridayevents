@@ -5,30 +5,41 @@
 */
 import React, {useState, useEffect} from 'react'
 import RegisterView from './RegisterView'
+import {useAuth} from '../../Context/AppProvider'
 
 const RegisterViewController = props => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const {navigation} = props
+  const {createAccount} = useAuth()
 
   useEffect(() => {
-    console.log(props)
+    // console.log(props)
+    console.log(createAccount)
   }, [])
+
+  useEffect(() => {
+    // console.log(props)
+    console.log('username: ' + username)
+    console.log(password)
+  }, [username, password])
 
   const headerBackHandler = () => {
     navigation.pop()
   }
 
-  const data = {
-    username,
-    password,
-    setUsername,
-    setPassword,
-    headerBackHandler,
-  }
-
-  return <RegisterView data={data} {...props} />
+  return (
+    <RegisterView
+      username={username}
+      password={password}
+      setUsername={setUsername}
+      setPassword={setPassword}
+      headerBackHandler={headerBackHandler}
+      createAccount={createAccount}
+      {...props}
+    />
+  )
 }
 
 export default RegisterViewController

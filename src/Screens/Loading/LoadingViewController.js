@@ -3,13 +3,19 @@ import LoadingView from './LoadingView'
 import {useUser} from '../../Context/AppProvider'
 
 const LoadingViewController = props => {
-  const user = useUser()
+  const {user, loading} = useUser()
+  console.log(useUser())
   useEffect(() => {
-    if (user) {
+    if (!user && loading === false) {
+      console.log(loading)
       props.navigation.navigate('Auth')
     }
-    console.log(user)
-  }, [])
+    if (user && loading === false) {
+      console.log(loading)
+      props.navigation.navigate('App')
+    }
+    console.log('user: ' + user)
+  }, [user, loading])
   return <LoadingView />
 }
 

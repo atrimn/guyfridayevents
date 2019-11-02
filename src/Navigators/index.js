@@ -9,7 +9,7 @@ export default createAppContainer(
       AuthLoading: {
         screen: LoadingViewController,
       },
-      // App: AppStack,
+      App: AppStack,
       Auth: AuthStack,
     },
     {
