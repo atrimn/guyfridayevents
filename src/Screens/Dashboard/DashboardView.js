@@ -10,6 +10,8 @@ import {
   Content,
   Form,
   Item,
+  List,
+  ListItem,
   Input,
   Label,
   Title,
@@ -21,10 +23,49 @@ import {
   Right,
   Left,
   Icon,
+  H3,
 } from 'native-base'
+import {ProfileCard} from '../../Components'
+
+const AdminMenu = ({dummyUser}) => {
+  if (dummyUser.admin) {
+    return (
+      <>
+        <ListItem itemDivider>
+          <Text>Admin Section</Text>
+        </ListItem>
+        <ListItem noIndent button>
+          <Body>
+            <H3>Create Events</H3>
+          </Body>
+          <Right>
+            <Icon active name="arrow-forward" />
+          </Right>
+        </ListItem>
+        <ListItem noIndent button>
+          <Body>
+            <H3>Completed Events</H3>
+          </Body>
+          <Right>
+            <Icon active name="arrow-forward" />
+          </Right>
+        </ListItem>
+        <ListItem noIndent button>
+          <Body>
+            <H3>Applicants </H3>
+          </Body>
+          <Right>
+            <Icon active name="arrow-forward" />
+          </Right>
+        </ListItem>
+      </>
+    )
+  }
+  return null
+}
 
 const DashboardView = props => {
-  const {logOut} = props
+  const {logOut, dummyUser} = props
   useEffect(() => {
     console.log(props)
     // toggleTabsHandler('login')
@@ -33,24 +74,54 @@ const DashboardView = props => {
   return (
     <Container>
       <Header>
-        <Left>
-          <Button transparent>
-            <Icon name="ios-arrow-back" />
-          </Button>
-        </Left>
+        <Left></Left>
         <Body>
-          <Title>Register</Title>
+          <Title>Dashboard</Title>
         </Body>
         <Right></Right>
       </Header>
       <Content padder>
-        <Text>Hello authenticated</Text>
-        <Button transparent onPress={logOut}>
-          <Text>Sign out!</Text>
-        </Button>
+        <ProfileCard />
+        <List>
+          <ListItem itemDivider>
+            <Text>Stay Organized</Text>
+          </ListItem>
+          <ListItem noIndent button>
+            <Body>
+              <H3>Events</H3>
+            </Body>
+            <Right>
+              <Icon active name="arrow-forward" />
+            </Right>
+          </ListItem>
+          <ListItem noIndent button>
+            <Body>
+              <H3>Event invitations</H3>
+            </Body>
+            <Right>
+              <Icon active name="arrow-forward" />
+            </Right>
+          </ListItem>
+          <ListItem noIndent button>
+            <Body>
+              <H3>Event History</H3>
+            </Body>
+            <Right>
+              <Icon active name="arrow-forward" />
+            </Right>
+          </ListItem>
+          <AdminMenu {...props} />
+        </List>
       </Content>
     </Container>
   )
+}
+
+{
+  /* <Text>Hello authenticated</Text>
+<Button transparent onPress={logOut}>
+  <Text>Sign out!</Text>
+</Button> */
 }
 
 export default DashboardView

@@ -10,6 +10,7 @@ import {useAuth} from '../../Context/AppProvider'
 const LoginViewController = props => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
 
   const {logIn} = useAuth()
   const {navigation} = props
@@ -29,6 +30,17 @@ const LoginViewController = props => {
       response.success ? navigation.navigate('App') : null
     } catch (error) {
       console.log(error)
+      switch (error.errorCode) {
+        case 'auth/wrong-password':
+          setError('wrong password')
+          break
+        case 'auth/invalid-email':
+          setError('invalid email address')
+          break
+        case 'auth/user-not-found':
+          setError('no account exist with that email')
+          break
+      }
     }
   }
 
@@ -38,6 +50,7 @@ const LoginViewController = props => {
     setUsername,
     setPassword,
     navigationHandler,
+    error,
     logIn: authenticate,
   }
 

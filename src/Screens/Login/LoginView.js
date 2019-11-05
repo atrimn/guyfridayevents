@@ -18,6 +18,7 @@ import {
   Button,
   Text,
 } from 'native-base'
+import {ErrorLabel} from '../../Components'
 
 const LoginView = props => {
   const {
@@ -27,6 +28,7 @@ const LoginView = props => {
     setPassword,
     navigationHandler,
     logIn,
+    error,
   } = props.data
 
   useEffect(() => {
@@ -40,6 +42,7 @@ const LoginView = props => {
         <Title>Guy friday events</Title>
       </Header>
       <Content padder>
+        <ErrorLabel error={error} />
         <Form>
           <Item floatingLabel last>
             <Label>Email address</Label>

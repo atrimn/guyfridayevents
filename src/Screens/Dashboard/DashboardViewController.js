@@ -11,11 +11,16 @@ const DashboardViewController = props => {
   // const [username, setUsername] = useState('')
   // const [password, setPassword] = useState('')
 
+  const dummyUser = {
+    name: 'adrian lineweaver',
+    admin: true,
+  }
+
   const {navigation} = props
-  const {logOut} = useAuth()
+  const {logOut, userData} = useAuth()
 
   useEffect(() => {
-    // console.log(props)
+    console.log(userData)
     // console.log(createAccount)
   }, [])
 
@@ -30,7 +35,9 @@ const DashboardViewController = props => {
     console.log(response)
   }
 
-  return <DashboardView logOut={unAuthenticate} {...props} />
+  return (
+    <DashboardView dummyUser={dummyUser} logOut={unAuthenticate} {...props} />
+  )
 }
 
 export default DashboardViewController

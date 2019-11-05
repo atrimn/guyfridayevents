@@ -56,8 +56,8 @@ const AuthProvider = props => {
         message: 'user authenticated',
       }
     } catch (error) {
-      return {
-        success: false,
+      throw {
+        error: true,
         errorCode: error.code,
       }
     }
