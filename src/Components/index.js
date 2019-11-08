@@ -1,3 +1,3 @@
 import ErrorLabel from './ErrorLabel'
-import ProfileCard from './ProfileCard'
-export {ErrorLabel, ProfileCard}
+import Profilepic from './Profilepic'
+export {ErrorLabel, Profilepic}

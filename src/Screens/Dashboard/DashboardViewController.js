@@ -24,8 +24,8 @@ const DashboardViewController = props => {
     // console.log(createAccount)
   }, [])
 
-  const headerBackHandler = () => {
-    navigation.pop()
+  const navigationHandler = route => {
+    navigation.navigate(route)
   }
 
   const unAuthenticate = () => {
@@ -36,7 +36,12 @@ const DashboardViewController = props => {
   }
 
   return (
-    <DashboardView dummyUser={dummyUser} logOut={unAuthenticate} {...props} />
+    <DashboardView
+      dummyUser={dummyUser}
+      navigationHandler={navigationHandler}
+      logOut={unAuthenticate}
+      {...props}
+    />
   )
 }
 

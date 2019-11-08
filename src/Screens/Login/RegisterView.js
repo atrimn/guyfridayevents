@@ -34,7 +34,6 @@ const RegisterView = props => {
   } = props
 
   useEffect(() => {
-    console.log(props.data)
     console.log(props)
     // toggleTabsHandler('login')
   }, [])
@@ -71,10 +70,11 @@ const RegisterView = props => {
           block
           small
           style={{marginVertical: 20}}
-          onPress={() => {
-            const response = createAccount(username, password)
+          onPress={async () => {
+            const response = await createAccount(username, password)
             if (response.success) {
-              props.navigation.navigate('ForgotPass')
+              console.log(response.success)
+              props.navigation.navigate('App')
             }
           }}>
           <Text>Register</Text>

@@ -16,14 +16,17 @@ const RegisterViewController = props => {
 
   useEffect(() => {
     // console.log(props)
-    console.log(createAccount)
-  }, [])
-
-  useEffect(() => {
-    // console.log(props)
     console.log('username: ' + username)
-    console.log(password)
+    console.log('password: ' + password)
   }, [username, password])
+
+  // const registerSuccessHandler = () => {
+  //   try {
+  //     const response = await createAccount()
+  //   } catch(error) {
+  //     console.log(error)
+  //   }
+  // }
 
   const headerBackHandler = () => {
     navigation.pop()

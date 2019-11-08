@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import firebase from 'react-native-firebase'
 import LoadingView from '../Screens/Loading/LoadingView'
+import {createUserEntry} from '../FirebaseUtils/firestoreUtils'
 
 const AuthContext = React.createContext()
 
@@ -29,8 +30,13 @@ const AuthProvider = props => {
       const response = await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
-      return {success: 'account created succesfully!'}
-      console.log(response)
+      // console.log(response)
+      const {user} = response
+      const createdUser = await createUserEntry({
+        email: user.email,
+        uid: user.uid,
+      })
+      return {success: 'account created succesfully!', user: createdUser}
     } catch (error) {
       // handle error codes.
       console.log(error)
@@ -40,9 +46,13 @@ const AuthProvider = props => {
   function logOut() {
     try {
       firebase.auth().signOut()
-      return {success: true, message: 'succesfully unauthenticated'}
+      return {success: true, message: 'succesfully signed out'}
     } catch (error) {
       console.log(error)
+      throw {
+        error: true,
+        message: 'Something went wrong!',
+      }
     }
   }
   //  Log in
