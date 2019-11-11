@@ -3,6 +3,21 @@ import EventCreationView from './eventCreationView'
 import {retrieveEvents, createEvent} from '../../FirebaseUtils/firestoreUtils'
 import {useUser} from '../../Context/AppProvider'
 import moment from 'moment'
+import {Alert} from 'react-native'
+import {Toast} from 'native-base'
+
+const errowAlert = error => {
+  Alert.alert(
+    'error',
+    error,
+    [
+      {
+        text: 'Ok',
+      },
+    ],
+    {cancelable: false},
+  )
+}
 
 const EventCreationViewController = props => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false)
@@ -15,7 +30,7 @@ const EventCreationViewController = props => {
   const [kitchenTimeIn, setKitchenTimeIn] = useState('')
   const [captainTimeIn, setCaptainTimeIn] = useState('')
   const [staffTimeIn, setStaffTimeIn] = useState('')
-  const [day, setDay] = useState(moment().format('L'))
+  const [day, setDay] = useState(moment().toDate())
 
   const userContext = useUser()
 
@@ -48,18 +63,31 @@ const EventCreationViewController = props => {
   }
 
   const handleCreateEvent = async () => {
-    const event = {
-      title: eventName,
-      description: notes,
-      address,
-      day,
-      captainTimeIn,
-      staffTimeIn,
-      kitchenTimeIn,
-    }
     try {
+      const event = {
+        title: eventName,
+        description: notes,
+        address,
+        day,
+        captainTimeIn,
+        staffTimeIn,
+        kitchenTimeIn,
+      }
+      if (eventName === '') throw 'Please name this event'
+      if (address === '') throw 'Please supply an address for this event'
+      // if any of the time ins aren't set throw error!
+      if (kitchenTimeIn === '' || captainTimeIn === '' || staffTimeIn === '')
+        throw 'Set a time in for all groups'
       const response = await createEvent(event)
+      Toast.show({
+        text: 'Event Created!',
+        buttonText: 'Okay',
+        type: 'success',
+      })
+      props.navigation.pop()
+      console.log(response)
     } catch (error) {
+      errowAlert(error)
       console.log(error)
     }
   }
@@ -72,15 +100,22 @@ const EventCreationViewController = props => {
     switch (selected) {
       case 'captain':
         console.log('captain')
+        if (staffTimeIn === '' && kitchenTimeIn === '') {
+          setKitchenTimeIn(timeIn)
+          setStaffTimeIn(timeIn)
+        }
         setCaptainTimeIn(timeIn)
+        setTimePickerVisibility()
         break
       case 'kitchen':
         console.log('kitchen')
         setKitchenTimeIn(timeIn)
+        setTimePickerVisibility()
         break
       case 'waiter':
         console.log('waiter')
         setStaffTimeIn(timeIn)
+        setTimePickerVisibility()
         break
     }
     hideDatePicker()

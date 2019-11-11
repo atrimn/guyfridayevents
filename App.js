@@ -10,12 +10,15 @@ import React from 'react'
 // import LoginViewController from './src/Screens/Login/loginViewController'
 import AppNavigator from './src/Navigators'
 import AppProviders from './src/Context/AppProvider'
+import {Root} from 'native-base'
 
 const App = () => {
   return (
-    <AppProviders>
-      <AppNavigator></AppNavigator>
-    </AppProviders>
+    <Root>
+      <AppProviders>
+        <AppNavigator></AppNavigator>
+      </AppProviders>
+    </Root>
   )
 }
 

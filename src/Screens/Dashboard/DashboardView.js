@@ -70,7 +70,7 @@ const AdminNavigationObject = [
   {
     title: 'Events(admin)',
     description: 'Invite staff & edit events',
-    screen: 'createEvent',
+    screen: 'createEvent2',
     icon: require('../../Assets/Calendar.png'),
   },
 ]
