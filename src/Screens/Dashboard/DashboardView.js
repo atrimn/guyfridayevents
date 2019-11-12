@@ -6,7 +6,7 @@
 import React, {useEffect} from 'react'
 import {
   Container,
-  // Header,
+  Header,
   Content,
   Card,
   CardItem,
@@ -16,12 +16,13 @@ import {
   ListItem,
   // Input,
   // Label,
-  // Title,
   Body,
   // Footer,
   // FooterTab,
-  // Button,
+  Button,
   Text,
+  Left,
+  Title,
   Right,
   Icon,
   H3,
@@ -32,7 +33,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
-  Button,
+  // Button,
 } from 'react-native'
 import {material, iOSColors, robotoWeights} from 'react-native-typography'
 import {Profilepic} from '../../Components'
@@ -78,7 +79,7 @@ const AdminNavigationObject = [
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'rgb(242,242,247)',
-    maxHeight: height,
+    maxHeight: 'auto',
     alignItems: 'center',
   },
   imageSection: {
@@ -180,14 +181,21 @@ const DashboardView = props => {
 
   return (
     <Container style={{backgroundColor: 'rgb(242,242,247)'}}>
+      <Header>
+        <Left>
+          <Button
+            // title="signout"
+            onPress={() => logOut()}
+            transparent>
+            <Icon style={{color: 'red', fontSize: 24}} name="md-exit" />
+          </Button>
+        </Left>
+        <Body>
+          <Title>Dashboard</Title>
+        </Body>
+        <Right></Right>
+      </Header>
       <Content padder contentContainerStyle={styles.container}>
-        <View
-          style={{
-            width: '90%',
-            alignItems: 'flex-start',
-          }}>
-          <Button onPress={logOut} title="sign out"></Button>
-        </View>
         <View style={styles.imageSection}>
           <Profilepic />
           <Text

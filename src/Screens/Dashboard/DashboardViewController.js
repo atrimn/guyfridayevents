@@ -6,6 +6,23 @@
 import React, {useState, useEffect} from 'react'
 import DashboardView from './DashboardView'
 import {useAuth} from '../../Context/AppProvider'
+import {Alert} from 'react-native'
+
+const logOutAlert = logout => {
+  return Alert.alert(
+    'Sign out',
+    'Are you sure?',
+    [
+      {text: 'Yes', onPress: () => logout()},
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+    ],
+    {cancelable: false},
+  )
+}
 
 const DashboardViewController = props => {
   // const [username, setUsername] = useState('')
@@ -35,11 +52,15 @@ const DashboardViewController = props => {
     console.log(response)
   }
 
+  const logOutHandler = () => {
+    logOutAlert(unAuthenticate)
+  }
+
   return (
     <DashboardView
       dummyUser={dummyUser}
       navigationHandler={navigationHandler}
-      logOut={unAuthenticate}
+      logOut={logOutHandler}
       {...props}
     />
   )
